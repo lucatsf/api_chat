@@ -7,7 +7,7 @@
 
 ## 🔖&nbsp; Sobre
 
-O projeto **Chat** é uma api que foi criada para aperfeiçoar meus conhecimentos com node e websockets.
+O projeto **Chat** é uma api que foi criada para aperfeiçoar meus conhecimentos com node e websockets. Desenvolvi conexão com a autenticação google oauth sem a utilização de bibliotecas.
 
 ---
 
