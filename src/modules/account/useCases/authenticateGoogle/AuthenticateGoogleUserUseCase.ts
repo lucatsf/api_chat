@@ -32,7 +32,7 @@ class AuthenticateGoogleUserUseCase  {
         "https://www.googleapis.com/auth/userinfo.email",
       ]
     };
-    
+
     const {
       access_token,
       id_token,
@@ -74,10 +74,14 @@ class AuthenticateGoogleUserUseCase  {
     });
 
     if (!user) {
-      const dateProvider = new DayjsDateProvider();
       const index = email.indexOf('@');
-  
+
       const name = email.substring(0, index);
+
+      const token = sign({ id }, auth.secret_refresh_token, {
+        subject: id,
+        expiresIn: auth.expires_in_refresh_token,
+      });
 
       user = await prisma.user.create({
         data: {
@@ -85,26 +89,12 @@ class AuthenticateGoogleUserUseCase  {
           name,
           email,
           picture_url: picture,
+          token: token
         }
       })
-      
-      const refreshToken = sign({ id: user.id }, auth.secret_refresh_token, {
-        subject: user.id,
-        expiresIn: auth.expires_in_refresh_token,
-      });
-  
-      const expiresDate = dateProvider.addDays(auth.expires_refresh_token_days);
-  
-      await prisma.userToken.create({
-        data: {
-          expiresDate,
-          refreshToken,
-          user_id: user.id
-        }
-      });
 
       return {
-        token: refreshToken,
+        token: token,
         user: {
           id: user.id,
           name: user.name,
@@ -114,29 +104,24 @@ class AuthenticateGoogleUserUseCase  {
       };
     }
 
-    const userToken = await prisma.userToken.findFirst({
-      where: {
-        user_id: user.id,
-      }
-    });
+    const googleId = user.google_id;
 
-    if (userToken) {
-      await prisma.userToken.delete({
-        where: {
-          id: userToken.id
-        }
-      });
-    }
-    
-    const userId = user.id;
-
-    const token = sign({ id: userId }, auth.secret_refresh_token, {
+    const newToken = sign({ id: googleId }, auth.secret_refresh_token, {
       subject: user.id,
       expiresIn: auth.expires_in_refresh_token,
     });
 
+    await prisma.user.update({
+      where: {
+        google_id: googleId
+      },
+      data: {
+        token: newToken
+      }
+    });
+
     return {
-      token: token,
+      token: newToken,
       user: {
         id: user.id,
         name: user.name,

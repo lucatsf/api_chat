@@ -1,15 +1,15 @@
 import { Router } from "express";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
-import { authenticate } from "./authenticate.routes";
 import { messageRouter } from "./message.routes";
 import { googleAuthenticate } from "./googleAuthenticate.routes";
+import { userRouter } from "./user.routes";
 
 const router = Router();
 
-router.use("/authenticate", authenticate);
 router.use("/", googleAuthenticate);
-router.use("/message", ensureAuthenticated, messageRouter);
+router.use("/user", ensureAuthenticated, userRouter);
+router.use("/message", messageRouter);
 
 
 export { router };
