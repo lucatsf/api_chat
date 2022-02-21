@@ -9,7 +9,7 @@ const router = Router();
 
 router.use("/", googleAuthenticate);
 router.use("/user", ensureAuthenticated, userRouter);
-router.use("/message", messageRouter);
+router.use("/message", ensureAuthenticated, messageRouter);
 
 
 export { router };

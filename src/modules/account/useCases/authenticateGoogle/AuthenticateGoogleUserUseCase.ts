@@ -5,18 +5,7 @@ import querystring from "querystring";
 import AppError from '../../../../shared/errors/AppError';
 import auth from '../../../../config/auth';
 import { DayjsDateProvider } from '../../../../shared/container/providers/DateProvider/implementations/DayjsDateProvider';
-
-interface IAccessTokenResponse {
-  access_token: string;
-}
-
-interface IUserResponse {
-  picture: string,
-  id: number,
-  name: string,
-  given_name: string,
-}
-
+ 
 class AuthenticateGoogleUserUseCase  {
   async execute(code: string) {
     const url = "https://oauth2.googleapis.com/token";

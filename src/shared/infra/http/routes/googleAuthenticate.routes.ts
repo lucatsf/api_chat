@@ -15,7 +15,7 @@ googleAuthenticate.get("/authenticate/google", (request, response) => {
 googleAuthenticate.get("/auth/google/callback", (request, response) => {
     const { code } = request.query;
 
-    response.redirect(`http://localhost:4000/?code=${code}`);
+    response.redirect(`http://localhost:3000/?code=${code}`);
 });
 
 googleAuthenticate.post("/auth/google/url", authenticateGoogleUserController.handle);

@@ -19,18 +19,7 @@ export class CreateMessageUseCase {
             },
         });
 
-        const messageEmit = {
-            message,
-            user_id,
-            likes: newMessage.likes,
-            updated_at: newMessage.updatedAt,
-            author: {
-                name: newMessage.user.name,
-                picture_url: newMessage.user.picture_url,
-            },
-        }
-
-        io.emit('new_post', messageEmit);
+        io.emit('new_message_chat', newMessage);
 
         return newMessage;
     }
