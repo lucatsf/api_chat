@@ -15,7 +15,7 @@ googleAuthenticate.get("/authenticate/google", (request, response) => {
 googleAuthenticate.get("/auth/google/callback", (request, response) => {
     const { code } = request.query;
 
-    response.redirect(`https://chat-drab-one.vercel.app/?code=${code}`);
+    response.redirect(`http://chat-drab-one.vercel.app/?code=${code}`);
 });
 
 googleAuthenticate.post("/auth/google/url", authenticateGoogleUserController.handle);
