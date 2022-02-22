@@ -13,7 +13,7 @@ class AuthenticateGoogleUserUseCase  {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: `${process.env.SERVER_ROOT_URI}/${redirectURI}`,
+      redirect_uri: `http://ec2-3-19-76-255.us-east-2.compute.amazonaws.com/${redirectURI}`,
       grant_type: "authorization_code",
       scope: [
         "https://www.googleapis.com/auth/userinfo.profile",
