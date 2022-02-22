@@ -10,7 +10,7 @@ import { router } from "./routes/index";
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:3000", "https://chat-drab-one.vercel.app/"];
+const allowedOrigins = ["http://localhost:3000", "https://chat-drab-one.vercel.app"];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
