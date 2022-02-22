@@ -8,7 +8,7 @@ const authenticateGoogleUserController = new AuthenticateGoogleUserController();
 
 googleAuthenticate.get("/authenticate/google", (request, response) => {
     response.redirect(
-        `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=http://ec2-3-19-76-255.us-east-2.compute.amazonaws.com/auth/google/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&prompt=consent`
+        `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=https://api.lucastorres.dev/auth/google/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&prompt=consent`
     );
 });
 
